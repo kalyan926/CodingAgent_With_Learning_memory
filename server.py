@@ -15,7 +15,7 @@ from pydantic import BaseModel
 from langchain.agents import create_agent
 from langchain.chat_models import init_chat_model
 from langgraph.checkpoint.memory import InMemorySaver
-from prompts import CODING_SYSTEM_PROMPT
+from prompts import CODING_SYSTEM_PROMPT, CODING_SYSTEM_PROMPT2
 import feedback_manager
 from tools import force_consolidate
 
@@ -60,9 +60,30 @@ if not os.path.exists(WORKSPACE_ROOT):
 if not os.path.exists(MEMORY_ROOT):
     os.makedirs(MEMORY_ROOT)
 
+
+"""
+models:
+
+
+glm-5
+glm-4.6
+glm-4.7
+
+kimi-k2:1t
+kimi-k2.5
+kimi-k2-thinking
+
+minimax-m2.5
+minimax-m2.1
+
+gpt-oss:120b
+
+"""
+
+
 # Initialize LangChain model
 model = init_chat_model(
-    model="gpt-oss:20b",
+    model="kimi-k2:1t",
     model_provider="ollama",
     base_url="https://ollama.com",
     api_key=os.getenv("OLLAMA_API_KEY"),
@@ -88,7 +109,9 @@ tools = [
     execute_command
 ]
 
-long_term_memory = ""  # Initialize with empty string or load from your knowledge base
+
+
+
 
 agent: any = None
 
@@ -100,16 +123,12 @@ def intialize_agent():
     agent = create_agent(
     model=model,    
     tools=tools,
-    system_prompt=CODING_SYSTEM_PROMPT.format(long_term_memory=long_term_memory),
+    system_prompt=CODING_SYSTEM_PROMPT2,
     checkpointer=InMemorySaver()
         )
 
 
 intialize_agent()  # Initialize agent at startup
-
-"""
-"you are a helpful assistant that can perform various tasks using the provided tools. You can use the tools to manage todos, read and write files, edit files, list files in directories, search for patterns in files, and manage memory. Always choose the most appropriate tool for the task at hand and provide clear instructions when using the tools.",
-"""
 
 
 # Request/Response Models

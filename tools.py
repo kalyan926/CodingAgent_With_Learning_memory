@@ -169,8 +169,14 @@ def write_file(path:str, content:str = "") -> str:
         - When you need to change partially to an existing file (use edit_file instead).
 
     Examples:
-        >>> file_write("/project/hello.py", "print('Hello, World!')")
-        >>> file_write("/project/settings.json", '{"debug": true, "version": "1.0.0"}')
+        >>> file_write("index.html", "<html><body><h1>Welcome</h1></body></html>")
+        >>> file_write("styles.css", "body { background-color: lightblue; }")
+        >>> file_write("script.js", "console.log('Hello, World!');")
+
+        >>> file_write("main.py", "print('Hello, World!')")
+        >>> file_write("project/hello.py", "print('Hello, World!')")
+        >>> file_write("project/settings.json", '{"debug": true, "version": "1.0.0"}')
+        
             
     Args:
         path (str): The path where the content file should be created or overwritten.
@@ -181,7 +187,7 @@ def write_file(path:str, content:str = "") -> str:
     try:
         actual_path = os.path.join(Workspace, path)
 
-        with open(actual_path, 'w') as f:
+        with open(actual_path, 'w', encoding='utf-8') as f:
             f.write(content)
         
         return f"content successfully written to specified file path: {path}"
@@ -318,12 +324,12 @@ def grep(file_path: str, search_string: str) -> list:
             lines = f.readlines()
         
         matching_lines = [line for line in lines if search_string in line]
-        return matching_lines
+        return f"Matching lines in file : {matching_lines}"
     
     except FileNotFoundError:
         return f"File not found: {file_path}"
     except Exception as e:
-        return f"An error occurred: {str(e)}"
+        return f"An error occurred: at path {file_path}"
 
 
 @tool
@@ -342,7 +348,7 @@ def glob(pattern:str, directory:str = "") -> list:
         import glob as glob_module
         path = os.path.join(Workspace, directory, pattern)
         matching_files = glob_module.glob(path)
-        return matching_files
+        return f"Matching files in directory with pattern {pattern}: {matching_files}"
     except Exception as e:
         return f"Error performing glob search: at directory {directory} with pattern {pattern}"
 
@@ -535,8 +541,6 @@ def memorization(coding_knowledge: str = None, architectural_decisions: str = No
     response = memory_system.memorize(memory_associations)
 
     return f"memorization done you can retrieve the important information later when needed. Response from memory system: {response}"
-
-
 
 
 

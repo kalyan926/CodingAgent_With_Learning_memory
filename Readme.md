@@ -288,7 +288,7 @@ This becomes a two-step process (clustering + refinement + relevancy check), add
 
 ### Core Architecture
 
-![Alt text](images\agent_with_learning_memory.png)
+![Alt text](images/agent_with_learning_memory.png)
 
 ## Core Concept
 
@@ -300,13 +300,15 @@ Build a memory system using only the LLM—no embeddings. The LLM clusters infor
 2. **Retrieval:** LLM reads the relevant category file based on current task context
 3. **Matching:** LLM identifies precise, contextually relevant information in real-time
 
-## Advantages
 
-- Single-step retrieval process
-- Mimics human memory through context awareness
-- Accurate recall based on current task context
-- Provides precise, relevant information to agents
-- Simpler architecture without embedding dependencies
+## Key Advantage: Context-Aware Retrieval
+
+When a memory file is loaded into the context window, it becomes part of the agent's active working memory—just like human memory. The LLM naturally finds relevant information through contextual understanding, not through cosine similarity scores, single-step retrieval process. This approach:
+
+- Enables genuine context awareness based on current task
+- Retrieves information with semantic understanding
+- Provides precise, relevant answers aligned with immediate needs
+- Mimics how human memory works—information is present and accessible when relevant based on the context
 
 ---
 
@@ -354,15 +356,6 @@ Consolidate STM into generalized, project-independent knowledge:
 - **Independent:** Decoupled from specific project context
 - **Useful:** Applicable to future tasks and problems
 - **Precise:** Capture accurate, verified learning (avoid hallucinations)
-
-## Key Advantage: Context-Aware Retrieval
-
-When a memory file is loaded into the context window, it becomes part of the agent's active working memory—just like human memory. The LLM naturally finds relevant information through contextual understanding, not through cosine similarity scores, single-step retrieval process. This approach:
-
-- Enables genuine context awareness based on current task
-- Retrieves information with semantic understanding
-- Provides precise, relevant answers aligned with immediate needs
-- Mimics how human memory works—information is present and accessible when relevant based on the context
 
 
 ## Workflow
@@ -422,8 +415,7 @@ Next Project: Load Relevant LTM → Better Decisions
    For each TODO:
       a. MEMORY RECOLLECTION
          - Call: memory_recollection()
-         - Load: Relevant LTM files based on the current working memory context
-         - Retrieve: Related knowledge from STM
+         - Retrieve: Relevant STM memory details based on the current working memory context
          - Apply: Learned strategies and constraints
       
       b. EXECUTE TODO
@@ -774,7 +766,7 @@ Open your browser and navigate to http://localhost:3000 to use the application.
 
 | | |
 |---|---|
-| ![Image 1](images\coding_agent.png) | ![Image 2](images\coding_agent_memory.png) |
+| ![Image 1](images/coding_agent.png) | ![Image 2](images/coding_agent_memory.png) |
 
 ---
 

@@ -35,7 +35,7 @@ def read_file(relative_path: str) -> str:
     try:
         parts = relative_path.split("\\")  # Ensure the path uses backslashes
         file_path = os.path.join(os.getcwd(), "memory", *parts)
-        print(f"Reading file from path: {file_path}")  # Debugging statement to check the constructed file path
+        
         with open(file_path, 'r') as f:
             content = f.read()
         return content
@@ -68,7 +68,7 @@ def write_file(relative_path: str, content: str) -> str:
         parts = relative_path.split("\\")  # Ensure the path uses backslashes
         file_path = os.path.join(os.getcwd(), "memory", *parts)
 
-        print(f"Writing to file at path: {file_path}")  # Debugging statement to check the constructed file path
+        
         with open(file_path, 'w') as f:
             f.write(content)
         return f"Content successfully written"
@@ -168,13 +168,13 @@ class Memory:
         """
 
         memory_headings = {
-        "coding_knowledge.md": "Coding Knowledge",
-        "architectural_decisions.md": "Architectural Decisions",
+        "coding-knowledge.md": "Coding Knowledge",
+        "architectural-decisions.md": "Architectural Decisions",
         "preferences.md": "Preferences",
         "observations.md": "Observations",
         "insights.md": "Insights",
-        "constraints_discovery.md": "Constraints Discovery",
-        "edges_cases_discovery.md": "Edges Cases Discovery",
+        "constraints-discovery.md": "Constraints Discovery",
+        "edge-cases-discovery.md": "Edges Cases Discovery",
         "failures.md": "Failures"
                             }   
         
@@ -190,7 +190,7 @@ class Memory:
                     heading = memory_headings.get(file_name, "General Memory")
                     short_term_memory_content += f"## {heading}\n\n{content}\n\n" 
         
-        print(short_term_memory_content)
+        
 
         consolidate_prompt = f""" 
         CONSOLIDATE Short term memory to long term memory: Analyze the following combined short-term memory content and identify and extract only the most important and relevant structured knowledge that should be transferred to long-term memory seperatly into episodic.md, semantic.md, procedural.md files. 
